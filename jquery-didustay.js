@@ -18,7 +18,7 @@
   } else {
     $.fn.didustay = function(f) {
       this.each(function() {
-        if ($.isWindow(this)) {
+        if (this === window) {
           $(this).on('beforeunload', function(e) {
             setTimeout(function() {
               $(window.document).one('mousemove', function(e) {
@@ -35,7 +35,7 @@
                   } else if (isIEMetro) {
                     xOffset = 245;
                   } else if (isIE) {
-                    yOffset = 0;
+                    yOffset = -35;
                 }
                 
                 if (xOffset !== undefined) {
