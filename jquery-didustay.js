@@ -23,7 +23,7 @@
 
         $(this).on('beforeunload', function(e) {
           isBeforeunload = true;
-          $(this).one('focus', function (e) {
+          $(this).one('click', function() {
             if (!isUnload) {
               options.stayed();
             } else {
