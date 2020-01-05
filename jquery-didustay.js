@@ -21,17 +21,18 @@
 
         $(this.document).find('body').append($iframe);
 
-        $(this).on('beforeunload', function(e) {
+        $(this).on('beforeunload', function() {
           isBeforeunload = true;
-          $(this).one('click focus', function() {
-            if (isBeforeunload) {
-              if (!isUnload) {
-                options.stayed();
-              } else {
-                options.left();
-              }
+          $(this).one('click', function() {
+            if (!isUnload) {
+              options.stayed();
+            } else {
+              options.left();
             }
             isBeforeunload = false;
+          });
+          setTimeout(function() {
+            $(this).click();
           });
         });
       } else {
