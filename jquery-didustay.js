@@ -23,11 +23,13 @@
 
         $(this).on('beforeunload', function(e) {
           isBeforeunload = true;
-          $(this).one('click', function() {
-            if (!isUnload) {
-              options.stayed();
-            } else {
-              options.left();
+          $(this).one('click focus', function() {
+            if (isBeforeunload) {
+              if (!isUnload) {
+                options.stayed();
+              } else {
+                options.left();
+              }
             }
             isBeforeunload = false;
           });
