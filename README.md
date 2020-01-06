@@ -17,4 +17,4 @@ $(window).didustay({
 
 ## Demo
 
-<a href="http://jsfiddle.net/ossipoff/u0v752aj/show" target="_blank">example</a>
+http://jsfiddle.net/ossipoff/u0v752aj/show
