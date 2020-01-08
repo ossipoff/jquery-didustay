@@ -1,29 +1,35 @@
-(function(window, $) {
-  $.fn.didustay = function(options) {
+(function (window, $) {
+  $.fn.didustay = function (options) {
     options = $.extend({
-      stayed: function() {},
-      left: function() {}
+      stayed: function () { },
+      left: function () { }
     }, options);
 
-    this.each(function() {
+    this.each(function () {
       if (this === window) {
+        var $window = $(this);
+        var $document = $(this.document);
         var isBeforeunload = false;
         var isUnload = false;
-        var $iframe = $('<iframe style="width:0;height:0;border:none;position:absolute;top:-1px;left:-1px;" />');
 
-        $iframe.on('load', function() {
-          $($iframe[0].contentWindow).on('beforeunload', function() {
-            if (isBeforeunload) {
-              isUnload = true;
-            }
+        // this timeout is necesary because iOS
+        setTimeout(function () {
+          var $iframe = $('<iframe style="width:0;height:0;border:none;position:absolute;top:-1px;left:-1px;" />');
+
+          $iframe.on('load', function () {
+            $($iframe[0].contentWindow).on('beforeunload', function () {
+              if (isBeforeunload) {
+                isUnload = true;
+              }
+            });
           });
+
+          $document.find('body').append($iframe);
         });
 
-        $(this.document).find('body').append($iframe);
-
-        $(this).on('beforeunload', function() {
+        $window.on('beforeunload', function () {
           isBeforeunload = true;
-          $(this).one('click', function() {
+          $window.one('click', function () {
             if (!isUnload) {
               options.stayed();
             } else {
@@ -31,8 +37,8 @@
             }
             isBeforeunload = false;
           });
-          setTimeout(function() {
-            $(this).click();
+          setTimeout(function () {
+            $window.click();
           });
         });
       } else {
